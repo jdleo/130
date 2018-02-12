@@ -11,7 +11,7 @@ public class ArrayStack implements DStack {
     private int currentSize = 10;
     
     //initialize the array with size of currentSize (10)
-    private Double[] data = new Double[currentSize];
+    private double[] data = new double[currentSize];
     
     //variable to keep track of the index we're pointed at in the array
     private int cur = 0;
@@ -30,11 +30,11 @@ public class ArrayStack implements DStack {
         } else {
             //we will make new array with doubled size and copy over data
             currentSize *= 2;
-            Double[] tmp = new Double[currentSize];
+            double[] tmp = new double[currentSize];
             
             //copy over data to tmp
             int tmp_cur = 0;
-            foreach(double i : data) {
+            for (double i : data) {
                 tmp[tmp_cur] = i;
                 tmp_cur++;
             }
@@ -52,18 +52,20 @@ public class ArrayStack implements DStack {
         //we will accomplish this by copying over data to new array
         //excluding the last element in the list
         
+        double poppedData = data[currentSize - 1];
         currentSize -= 1;
-        Double[] tmp = new Double[currentSize];
+        double[] tmp = new double[currentSize];
         
         //copy over data to tmp, excluding last element
         int tmp_cur = 0;
-        foreach(double i : data) {
+        for (double i : data) {
             tmp[tmp_cur] = i;
             tmp_cur++;
             if (tmp_cur == currentSize) break;
         }
         
         data = tmp;
+        return poppedData;
         
     }
     
@@ -71,31 +73,4 @@ public class ArrayStack implements DStack {
         return data[data.length - 1]; //return the end of the arrayStack
     }
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
 }

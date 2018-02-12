@@ -11,7 +11,7 @@ public class ListStack implements DStack {
     
     //initializes an empty stack
     public ListStack() {
-        first = null;
+        head = null;
         n = 0;
     }
     
