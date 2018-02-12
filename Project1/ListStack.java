@@ -1,3 +1,10 @@
+/**
+ * Name: John Leonardo
+ * Date: 12 February 2018
+ * Class: CSC 130
+ * File: ListStack.java
+ */
+
 public class ListStack implements DStack {
     
     private int n; //size of stack

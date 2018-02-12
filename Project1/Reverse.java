@@ -1,3 +1,10 @@
+/**
+ * Name: John Leonardo
+ * Date: 12 February 2018
+ * Class: CSC 130
+ * File: Reverse.java
+ */
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
