@@ -17,7 +17,7 @@ public class ArrayStack implements DStack {
     private int cur = 0;
     
     public boolean isEmpty() {
-        return (data.length == 0); //if length 0, it's empty
+        return (cur == 0); //if cur 0, it's empty
     }
     
     public void push(double d) {
@@ -48,24 +48,14 @@ public class ArrayStack implements DStack {
     }
     
     public double pop() {
-        //the goal here is to remove the element that's at the end of the array
-        //we will accomplish this by copying over data to new array
-        //excluding the last element in the list
         
-        double poppedData = data[currentSize - 1];
-        currentSize -= 1;
-        double[] tmp = new double[currentSize];
+        //grab the object at the head of the array stack
+        double head = data[cur];
         
-        //copy over data to tmp, excluding last element
-        int tmp_cur = 0;
-        for (double i : data) {
-            tmp[tmp_cur] = i;
-            tmp_cur++;
-            if (tmp_cur == currentSize) break;
-        }
+        //move the cursor down in the stack
+        cur--;
         
-        data = tmp;
-        return poppedData;
+        return head;
         
     }
     
