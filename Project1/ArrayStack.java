@@ -39,6 +39,8 @@ public class ArrayStack implements DStack {
                 tmp_cur++;
             }
             
+            data = tmp;
+            
             //then, finally append the data, since our array can fit it now
             data[cur - 1] = d;
         }
@@ -46,11 +48,54 @@ public class ArrayStack implements DStack {
     }
     
     public double pop() {
+        //the goal here is to remove the element that's at the end of the array
+        //we will accomplish this by copying over data to new array
+        //excluding the last element in the list
+        
+        currentSize -= 1;
+        Double[] tmp = new Double[currentSize];
+        
+        //copy over data to tmp, excluding last element
+        int tmp_cur = 0;
+        foreach(double i : data) {
+            tmp[tmp_cur] = i;
+            tmp_cur++;
+            if (tmp_cur == currentSize) break;
+        }
+        
+        data = tmp;
         
     }
     
     public double peek() {
-        return data[0]; //return the head of the array stack
+        return data[data.length - 1]; //return the end of the arrayStack
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
 }
