@@ -5,32 +5,34 @@
  */
 
 public class BinarySearchTree<Integer> {
-    private Node root;      //root of BST
-    private int height;     //height of BST
+    private BinaryNode<Integer> root;      //root of BST
+    
+    
+    /**
+     * Constructor for BinarySearchTree class
+     */
+    public BinarySearchTree() {
+        this.root = null;
+    }
     
     /**
      * Method for getting the root of this BST
      * @return root : returns the root of this BST
      */
-    public Node getRoot() {
+    public BinarySearchTree<Integer> getRoot() {
         return root;
-    }
-    
-    /**
-     * Method for getting the height of this BST
-     * @return height : returns the height of this BST
-     */
-    public int height() {
-        return height;
     }
 }
 
-class Node {
-    int key;
-    Node left, right;
+
+class BinaryNode<Integer> {
+    int element;
+    BinaryNode<Integer> left;
+    BinaryNode<Integer> right;
     
-    public Node(int item) {
-        key = item;
-        left = right = null;
+    public BinaryNode(int element, BinaryNode<Integer> lt, BinaryNode<Integer> rt) {
+        this.element = element;
+        this.left = lt;
+        this.right = rt;
     }
 }
