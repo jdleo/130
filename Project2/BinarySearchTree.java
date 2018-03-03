@@ -34,9 +34,9 @@ public class BinarySearchTree<Integer> {
 
 
 class BinaryNode<Integer> {
-    int element;
-    BinaryNode<Integer> left;
-    BinaryNode<Integer> right;
+    int element;        //the data for this node
+    BinaryNode<Integer> left;       //the left child node
+    BinaryNode<Integer> right;      //the right child node
     
     /**
      * Constructor for BinaryNode class
