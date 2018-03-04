@@ -80,6 +80,54 @@ public class BinarySearchTree<Integer> {
         
         return node;
     }
+    
+    /**
+     * Method for deleting a node in a BST
+     * @param toDelete : the key to delete
+     */
+    public void delete(int toDelete) {
+        this.root = delete(root, toDelete);
+    }
+    
+    /**
+     * Method for deleting a node in a BST
+     * @param p : the parent node
+     * @param toDelete : the key to delete
+     */
+    public BinaryNode<Integer> delete(BinaryNode<Integer> p, int toDelete) {
+        
+        int compareResult = (toDelete - p.element);
+        
+        if (p == null) {
+            System.out.println("cannot delete");
+        } else if (compareResult < 0) {
+            p.left = delete(p.left, toDelete);
+        } else if (compareResult > 0) {
+            p.right = delete(p.right, toDelete);
+        } else {
+            if (p.left == null) {
+                return p.right;
+            } else if (p.right == null) {
+                return p.left;
+            } else {
+                //get data from rightmost node in left subtree
+                p.element = retrieve(p.left);
+                //delete rightmost node in left subtree
+                p.left = delete(p.left, p.element);
+            }
+        }
+        return p;
+    }
+    
+    /**
+     * Method for retrieving data of a node
+     * @param p : the node to retrieve the data of
+     * @return int : the integer data to retrieve
+     */
+    private int retrieve(BinaryNode<Integer> p) {
+        while (p.right != null) p = p.right;
+        return p.element;
+    }
 }
 
 

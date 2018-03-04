@@ -18,12 +18,25 @@ public class project2 {
         while (treeHeight < 5) {
             int num = R.nextInt(90) + 10;     //random integer w bounds
             
-            tree.put(num, tree.getRoot());
-            treeHeight = tree.height();
+            tree.put(num, tree.getRoot());      //insert data
+            treeHeight = tree.height();     //update tree height
+        }
+        
+        //print our BST
+        TreePrinter printer = new TreePrinter(tree);
+        printer.print("Binary Search Tree");
+        
+        //repeatedly delete the root of the tree
+        //print to verify deletion was done correctly
+        //stop when tree is empty
+        while (tree.getRoot() != null) {
             
-            TreePrinter printer = new TreePrinter(tree);
-            printer.print("test");
+            //delete
+            tree.delete(tree.getRoot().element);
             
+            //print our BST
+            TreePrinter tp = new TreePrinter(tree);
+            tp.print("Binary Search Tree");
         }
     }
 }
