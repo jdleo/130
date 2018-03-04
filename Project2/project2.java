@@ -6,15 +6,15 @@
 import java.util.Random;
 
 public class project2 {
-    
-    //test random method for lower and upper bounds
-    for(int i = 0; i < 10000; i++) {
-        n = rand();
-        if (n == 10 || n == 99) {
-            System.out.println(n);
+    public static void main(String[] args) {
+        //test random method for lower and upper bounds
+        for(int i = 0; i < 10000; i++) {
+            n = rand();
+            if (n == 10 || n == 99) {
+                System.out.println(n);
+            }
         }
     }
-
 }
 
 /**
