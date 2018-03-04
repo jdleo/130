@@ -7,23 +7,20 @@ import java.util.Random;
 
 public class project2 {
     public static void main(String[] args) {
-        //test random method for lower and upper bounds
-        for(int i = 0; i < 10000; i++) {
-            n = rand();
-            if (n == 10 || n == 99) {
-                System.out.println(n);
-            }
+        long seed = System.currentTimeMillis();     //seed for random gen
+        Random R = new Random(seed);        //initialize Random class
+        int treeHeight = 0;     //to keep track of tree height
+        
+        BinarySearchTree<Integer> tree = new BinarySearchTree<Integer>;
+        
+        while (treeHeight < 5) {
+            int num = R.nextInt(90) + 10;     //random integer w bounds
+            
+            //tree.put(num);
+            //treeHeight = tree.height();
+            
         }
+        
+        //print BinarySearchTree
     }
-}
-
-/**
- * Method for getting a random number in the interval [10,99]
- * @return int : the random number the method generates
- */
-public int rand() {
-    long seed = System.currentTimeMillis();     //seed for random gen
-    Random R = new Random(seed);        //initialize Random class
-
-    return R.nextInt(99 - 10) + 10;     //return random integer w bounds
 }
