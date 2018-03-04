@@ -23,20 +23,41 @@ public class project2 {
         }
         
         //print our BST
+        System.out.print("\n-----------------------------------\n"+
+                         "-----------------------------------\n");
         TreePrinter printer = new TreePrinter(tree);
-        printer.print("Binary Search Tree");
+        printer.print("Initial BST");
+        
+        System.out.print("\n-----------------------------------\n"+
+                         "-----------------------------------\n");
         
         //repeatedly delete the root of the tree
         //print to verify deletion was done correctly
         //stop when tree is empty
         while (tree.getRoot() != null) {
+            int toDelete = tree.getRoot().element;
             
             //delete
-            tree.delete(tree.getRoot().element);
+            tree.delete(toDelete);
             
             //print our BST
             TreePrinter tp = new TreePrinter(tree);
-            tp.print("Binary Search Tree");
+            String title = String.format("Removed element: %d", toDelete);
+            tp.print(title);
+        }
+        
+        System.out.print("\n-----------------------------------\n"+
+                         "-----------------------------------\n");
+        
+        //Create an AVL tree and insert 35 random integers in [10,99]
+        AVLTree<Integer> avlTree = new AVLTree<Integer>();
+        avlTree.put(R.nextInt(90) + 10);        //insert root
+        for (int i = 0; i < 35; i++) {
+            avlTree.put(R.nextInt(90) + 10, avlTree.getRoot());
+            
+            //print our AVL tree
+            TreePrinter tp = new TreePrinter(avlTree);
+            tp.print(" ");
         }
     }
 }

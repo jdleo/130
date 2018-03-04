@@ -93,13 +93,14 @@ public class BinarySearchTree<Integer> {
      * Method for deleting a node in a BST
      * @param p : the parent node
      * @param toDelete : the key to delete
+     * @exception NullPointerException
      */
-    public BinaryNode<Integer> delete(BinaryNode<Integer> p, int toDelete) {
+    public BinaryNode<Integer> delete(BinaryNode<Integer> p, int toDelete) throws NullPointerException {
         
         int compareResult = (toDelete - p.element);
         
         if (p == null) {
-            System.out.println("cannot delete");
+            throw new NullPointerException();
         } else if (compareResult < 0) {
             p.left = delete(p.left, toDelete);
         } else if (compareResult > 0) {
