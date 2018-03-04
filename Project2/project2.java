@@ -11,16 +11,19 @@ public class project2 {
         Random R = new Random(seed);        //initialize Random class
         int treeHeight = 0;     //to keep track of tree height
         
-        BinarySearchTree<Integer> tree = new BinarySearchTree<Integer>;
+        BinarySearchTree<Integer> tree = new BinarySearchTree<Integer>();
+        
+        tree.put(R.nextInt(90) + 10);        //insert root
         
         while (treeHeight < 5) {
             int num = R.nextInt(90) + 10;     //random integer w bounds
             
-            //tree.put(num);
-            //treeHeight = tree.height();
+            tree.put(num, tree.getRoot());
+            treeHeight = tree.height();
+            
+            TreePrinter printer = new TreePrinter(tree);
+            printer.print("test");
             
         }
-        
-        //print BinarySearchTree
     }
 }

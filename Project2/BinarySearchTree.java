@@ -6,7 +6,6 @@
 
 public class BinarySearchTree<Integer> {
     private BinaryNode<Integer> root;       //root of BST
-    private int height;     //height of BST
     
     /**
      * Constructor for BinarySearchTree class
@@ -28,7 +27,58 @@ public class BinarySearchTree<Integer> {
      * @return height : returns the height of this BST
      */
     public int height() {
-        return this.height;
+        return maxDepth(root);
+    }
+    
+    /**
+     * Method for computing the max depth of a BST
+     * @param node : the node to compute the depth from
+     * @return the max depth
+     */
+    int maxDepth(BinaryNode<Integer> node) {
+        if (node == null) {
+            return (-1); // an empty tree  has height −1
+        } else {
+            // compute the depth of each subtree
+            int leftDepth = maxDepth(node.left);
+            int rightDepth = maxDepth(node.right);
+            // use the larger one
+            if (leftDepth > rightDepth )
+                return (leftDepth + 1);
+            else
+                return (rightDepth + 1);
+        }
+    }
+    
+    /**
+     * Method for inserting data into this BST
+     * @param x : data to insert
+     */
+    public void put(int x) {
+        this.root = new BinaryNode<Integer>(x, null, null);
+    }
+    
+    /**
+     * Method for inserting data into this BST
+     * @param x : data to insert
+     * @param node : last visited node
+     */
+    public BinaryNode<Integer> put(int x, BinaryNode<Integer> node) {
+        if (node == null) {
+            return new BinaryNode<Integer>(x, null, null);
+        }
+        
+        int compareResult = (x - node.element);
+        
+        if (compareResult < 0) {
+            node.left = put(x, node.left);
+        } else if (compareResult > 0) {
+            node.right = put(x, node.right);
+        } else {
+            //duplicate : do nothing
+        }
+        
+        return node;
     }
 }
 
