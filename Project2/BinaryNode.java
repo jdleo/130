@@ -78,6 +78,14 @@ public class BinaryNode {
         this.right = node;
     }
     
+    /**
+     * Setter for height
+     * @param x : height in int form
+     */
+    public void setHeight(int x) {
+        this.height = x;
+    }
+    
     
     
 }

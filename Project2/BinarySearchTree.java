@@ -20,7 +20,7 @@ public class BinarySearchTree {
      * @param node
      * @return the node
      */
-    public BinaryNode insert(int x, BinaryNode node) {
+    protected BinaryNode insert(int x, BinaryNode node) {
       //create a new node to be attached to the last visited node
         if (node == null) {
             return new BinaryNode(x, null, null);
@@ -46,7 +46,7 @@ public class BinarySearchTree {
      * @param t : root of the subtree to search
      * @return node
      */
-    public BinaryNode remove(int x, BinaryNode t) {
+    protected BinaryNode remove(int x, BinaryNode t) {
         if (t == null) return t;        //item not found, do nothing
         int comparison = (x - t.getData());     //comparison
         
@@ -85,13 +85,13 @@ public class BinarySearchTree {
             return findMin(t.getLeft());
         }
     }
-     
+    
     
     /**
      * Method to compute height of this tree
      * @return height : int
      */
-    public int height() {
+    protected int height() {
         if (root == null) {
             return -1;      //if root is null, tree height is -1
         } else {
@@ -103,7 +103,7 @@ public class BinarySearchTree {
      * Method to compute height of any subtree
      * @return height : int
      */
-    public int height(BinaryNode node) {
+    protected int height(BinaryNode node) {
         if (node == null) {
             return -1;
         } else {
