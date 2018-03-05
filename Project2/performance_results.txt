@@ -1,3 +1,4 @@
+
 Johns-MacBook-Pro:Project2 j$ java project2performance 100000
 BST RUNTIME RESULTS:
 MILLISECONDS: 36

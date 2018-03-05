@@ -19,3 +19,13 @@ java project2performance N
 (N must be an integer. Don't use anything too large or the JVM
 will run out of heap space. I tested up to N=30,000,000 without 
 issues before I had to manually increase my heap/stack size) 
+
+
+MAIN PROJECT 2 SOURCE : project2.java
+PROJECT 2 PERFORMANCE TEST SOURCE : project2performance.java
+
+PROJECT 2 OUTPUT : results.txt
+
+PERFORMANCE OUTPUT : performance_results.txt
+
+REPORT : report.docx
