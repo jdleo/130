@@ -1,0 +1,31 @@
+Johns-MacBook-Pro:Project2 j$ java project2performance 100000
+BST RUNTIME RESULTS:
+MILLISECONDS: 36
+--------------------
+AVL RUNTIME RESULTS:
+MILLISECONDS: 69
+--------------------
+
+Johns-MacBook-Pro:Project2 j$ java project2performance 1000000
+BST RUNTIME RESULTS:
+MILLISECONDS: 658
+--------------------
+AVL RUNTIME RESULTS:
+MILLISECONDS: 817
+--------------------
+
+Johns-MacBook-Pro:Project2 j$ java project2performance 10000000
+BST RUNTIME RESULTS:
+MILLISECONDS: 16423
+--------------------
+AVL RUNTIME RESULTS:
+MILLISECONDS: 10005
+--------------------
+
+Johns-MacBook-Pro:Project2 j$ java -Xms4096m project2performance 100000000
+BST RUNTIME RESULTS:
+MILLISECONDS: 329642
+--------------------
+AVL RUNTIME RESULTS:
+MILLISECONDS: 245328
+--------------------

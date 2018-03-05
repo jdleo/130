@@ -5,7 +5,8 @@
  */
 
 public class AVLTree extends BinarySearchTree {
-    
+   
+    //INSERT METHOD
     protected BinaryNode insert(int data, BinaryNode node) {
         //perform normal BST insertion
         if (node == null) {
@@ -56,6 +57,7 @@ public class AVLTree extends BinarySearchTree {
         return node;
     }
     
+    //REMOVE METHOD
     protected BinaryNode remove(int data, BinaryNode node) {
         //perform standard bst delete
         if (node == null) {
