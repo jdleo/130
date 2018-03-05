@@ -1,0 +1,21 @@
+to compile and run the main program in a command-line interface:
+first navigate to the project 2 directory -->
+cd path/to/directory/Project2
+
+lastly, just compile and run -->
+javac *.java
+java project2
+
+
+to test the performance of AVL trees vs. BST trees, you will
+need to use the project2performance.java file provided
+first navigate to the project 2 directory -->
+cd path/to/directory/Project2
+
+lastly, just compile and run (this program takes an ARGUMENT) -->
+javac *.java
+java project2performance N
+
+(N must be an integer. Don't use anything too large or the JVM
+will run out of heap space. I tested up to N=30,000,000 without 
+issues before I had to manually increase my heap/stack size) 
