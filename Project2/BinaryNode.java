@@ -49,7 +49,7 @@ public class BinaryNode {
      * Getter for right child
      * @return right
      */
-    public BinaryNode getLeft() {
+    public BinaryNode getRight() {
         return this.right;
     }
     
