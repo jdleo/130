@@ -38,6 +38,10 @@ public class project2 {
         int randomNum = R.nextInt(90) + 10;     //random num w bounds [10,99]
         BinaryNode root2 = new BinaryNode(randomNum);       //create node w random num
         tree2.setRoot(root2);
+        TreePrinter printer2 = new TreePrinter(tree2);
+        printer.print("-------------------------------------------------\n"+
+                      "RANDOMLY GENERATED AVL TREE WITH 35 RANDOM ELEMENTS"+
+                      "\n-------------------------------------------------");
         
         //insert 34 random values into this new AVL tree (35 - 1, since we have root)
         //they must be unique, so let's keep track in an array
