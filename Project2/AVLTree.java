@@ -185,4 +185,51 @@ public class AVLTree extends BinarySearchTree {
         
         return current;
     }
+    
+    //INSERT METHOD ONLY FOR TESTING PERFORMANCE (DOES NOT PRINT ROTATIONS)
+    protected BinaryNode insert(int data, BinaryNode node, boolean testing) {
+        //perform normal BST insertion
+        if (node == null) {
+            return new BinaryNode(data, null, null);
+        }
+        //find insertion point
+        if (data < node.getData()) {
+            node.setLeft(insert(data, node.getLeft(), true));
+        } else if (data > node.getData()) {
+            node.setRight(insert(data, node.getRight(), true));
+        } else {
+            return node; //no duplicate keys
+        }
+        
+        //update height of the parent node
+        node.setHeight(1 + max(height(node.getLeft()), height(node.getRight())));
+        
+        //get balance factor of the parent node to check if that node became unbalanced
+        int balance = balance(node);
+        
+        //LEFT-LEFT CASE
+        if (balance > 1 && data < node.getLeft().getData()) {
+            return rightRotate(node);
+        }
+        
+        //RIGHT-RIGHT CASE
+        if (balance < -1 && data > node.getRight().getData()) {
+            return leftRotate(node);
+        }
+        
+        //LEFT-RIGHT CASE
+        if (balance > 1 && data > node.getLeft().getData()) {
+            node.setLeft(leftRotate(node.getLeft()));
+            return rightRotate(node);
+        }
+        
+        //RIGHT-LEFT CASE
+        if (balance < -1 && data < node.getRight().getData()) {
+            node.setRight(rightRotate(node.getRight()));
+            return leftRotate(node);
+        }
+        
+        //or, return the (unchanged) node
+        return node;
+    }
 }
