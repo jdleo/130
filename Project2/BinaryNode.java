@@ -8,6 +8,7 @@ public class BinaryNode {
     int data;        //data for this node
     BinaryNode left;        //left child
     BinaryNode right;       //right child
+    int height;     //height for node
     
     /**
      * Constructor
