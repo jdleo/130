@@ -57,7 +57,71 @@ public class AVLTree extends BinarySearchTree {
     }
     
     protected BinaryNode remove(int data, BinaryNode node) {
-        return node; //temp
+        //perform standard bst delete
+        if (node == null) {
+            return node;
+        }
+        
+        if (data < node.getData()) {
+            node.setLeft(remove(data, node.getLeft()));
+        } else if (data > node.getData()) {
+            node.setRight(remove(data, node.getRight()));
+        } else {
+            if ((node.getLeft() == null) || (node.getRight() == null)) {
+                BinaryNode temp = null;
+                if (temp == node.getLeft()) {
+                    temp = node.getRight();
+                } else {
+                    temp = node.getLeft();
+                }
+                
+                if (temp == null) {
+                    //no child case
+                    temp = node;
+                    node = null;
+                } else {
+                    //one child case
+                    node = temp;
+                }
+            } else {
+                BinaryNode temp = minNode(node.getRight());
+                node.setData(temp.getData());
+                node.setRight(remove(temp.getData(), node.getRight()));
+            }
+        }
+        
+        //if the tree only had one node then return it
+        if (node == null) return node;
+        
+        //UPDATE HEIGHT OF THE CURRENT NODE
+        node.setHeight(max(height(node.getLeft()), height(node.getRight())) + 1);
+        
+        //get balance factor of this node to decide whether we should rebalance or not
+        int balance = balance(node);
+        
+        //LEFT-LEFT CASE
+        if (balance > 1 && balance(node.getLeft()) >= 0) {
+            return rightRotate(node);
+        }
+        
+        //LEFT-RIGHT CASE
+        if (balance > 1 && balance(node.getLeft()) < 0) {
+            node.setLeft(leftRotate(node.getLeft()));
+            return rightRotate(node);
+        }
+        
+        //RIGHT-RIGHT CASE
+        if (balance < -1 && balance(node.getRight()) <= 0) {
+            return leftRotate(node);
+        }
+        
+        //RIGHT-LEFT CASE
+        if (balance < -1 && balance(node.getRight()) > 0) {
+            node.setRight(rightRotate(node.getRight()));
+            return leftRotate(node);
+        }
+        
+        return node;
     }
     
     private int balance(BinaryNode node){
@@ -109,5 +173,16 @@ public class AVLTree extends BinarySearchTree {
         
         //return new root
         return y;
+    }
+    
+    //utility function to get minimum value of a node's subtree
+    BinaryNode minNode(BinaryNode node) {
+        BinaryNode current = node;
+        
+        while (current.getLeft() != null) {
+            current = current.getLeft();
+        }
+        
+        return current;
     }
 }

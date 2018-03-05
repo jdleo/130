@@ -55,5 +55,14 @@ public class project2 {
             TreePrinter tp = new TreePrinter(tree2);
             tp.print(" ");
         }
+        
+        //now, repeatedly delete the root of the tree
+        //and, print the tree after every deletion
+        while (tree2.getRoot() != null) {
+            tree2.setRoot(tree2.remove(tree2.getRoot().getData(), tree2.getRoot()));
+            TreePrinter tp = new TreePrinter(tree2);
+            tp.print("\n Removed the root...");
+        }
+        
     }
 }
