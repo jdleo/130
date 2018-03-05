@@ -54,6 +54,14 @@ public class BinaryNode {
     }
     
     /**
+     * Setter for data
+     * @param x : the data to assign
+     */
+    public void setData(int x) {
+        this.data = x;
+    }
+    
+    /**
      * Setter for left child
      * @param node : node to assign as left child
      */
