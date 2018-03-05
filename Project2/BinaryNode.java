@@ -1,9 +1,9 @@
 /**
- * BinarySearchTree.java
+ * BinaryNode.java
  * @author John Leonardo, W Reed
  * Class: CSC 130
  */
 
-public class BinarySearchTree {
+public class BinaryNode {
 
 }

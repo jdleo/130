@@ -11,7 +11,7 @@ public class project2 {
         Random R = new Random(seed);        //initialize Random class
         int treeHeight = 0;     //to keep track of tree height
         
-        BinarySearchTree<Integer> tree = new BinarySearchTree<Integer>();
+        BinarySearchTree BST = new BinarySearchTree();
         
         tree.put(R.nextInt(90) + 10);        //insert root
         
@@ -44,20 +44,6 @@ public class project2 {
             TreePrinter tp = new TreePrinter(tree);
             String title = String.format("Removed element: %d", toDelete);
             tp.print(title);
-        }
-        
-        System.out.print("\n-----------------------------------\n"+
-                         "-----------------------------------\n");
-        
-        //Create an AVL tree and insert 35 random integers in [10,99]
-        AVLTree<Integer> avlTree = new AVLTree<Integer>();
-        avlTree.put(R.nextInt(90) + 10);        //insert root
-        for (int i = 0; i < 35; i++) {
-            avlTree.put(R.nextInt(90) + 10, avlTree.getRoot());
-            
-            //print our AVL tree
-            TreePrinter tp = new TreePrinter(avlTree);
-            tp.print(" ");
         }
     }
 }
