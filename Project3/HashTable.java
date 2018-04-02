@@ -16,8 +16,21 @@ public class HashTable implements DataCounter<String> {
 
     /** {@inheritDoc} */
     public DataCount<String>[] getCounts() {
-        // TODO Auto-generated method stub
-        return null;
+        //array of only non-null data counts
+        DataCount[] counts = new DataCount[getSize()];
+        
+        //cursor to keep track of what index we're on
+        int cur = 0
+        
+        //iterate over table
+        for (DataCount x : table) {
+            //only take non-null data, we want counts
+            if (x.data != null) {
+                counts[cur] = x;
+                cur++;
+            }
+        }
+        return counts;
     }
 
     /** {@inheritDoc} */
