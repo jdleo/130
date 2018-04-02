@@ -6,7 +6,9 @@
  */
 
 import java.io.IOException;
-import java.math.*;
+import java.util.*;
+import java.util.stream.*;
+
 
 public class WordCount {
     
@@ -35,55 +37,71 @@ public class WordCount {
         } else if (structure.equals("-a")) {
             if (option.equals("-frequency")) {
                 //user chose: java WordCount -a -frequency <filename>
-                counter = new AVLTree<String>();
+                //counter = new AVLTree<String>();
             } else {
                 //user chose: java WordCount -a -num_unique <filename>
-                counter = new AVLTree<String>();
+                //counter = new AVLTree<String>();
                 isFrequency = false;
             }
         } else if (structure.equals("-h")) {
             if (option.equals("-frequency")) {
                 //user chose: java WordCount -h -frequency <filename>
-                counter = new HashTable<String>();
+                counter = new HashTable();
             } else {
                 //user chose: java WordCount -h -num_unique <filename>
-                counter = new HashTable<String>();
+                counter = new HashTable();
                 isFrequency = false;
             }
         }
         
-        if isFrequency {
-            //print words along with their frequency
-            try {
-                FileWordReader reader = new FileWordReader(file);
-                String word = reader.nextWord();
-                while (word != null) {
-                    counter.incCount(word);
-                    word = reader.nextWord();
-                }
-            } catch (IOException e) {
-                System.err.println("Error processing " + file + e);
-                System.exit(1);
+        //try to insert every word into our data structure
+        try {
+            FileWordReader reader = new FileWordReader(file);
+            String word = reader.nextWord();
+            while (word != null) {
+                //lowercase it
+                word = word.toLowerCase();
+                //strip punctuation
+                word = word.replaceAll("\\p{Punct}", "");
+                counter.incCount(word);
+                word = reader.nextWord();
             }
-            
+        } catch (IOException e) {
+            System.err.println("Error processing " + file + e);
+            System.exit(1);
+        }
+        
+        if (isFrequency) {
             DataCount<String>[] counts = counter.getCounts();
+            //sort descending
             counts = sortByDescendingCount(counts);
+            
             for (DataCount<String> c : counts)
                 System.out.println(c.count + " \t" + c.data);
         } else {
-            //print number of unique words
-            
+            //just print num unique
+            System.out.println("Number of unique words: " + counter.getSize());
         }
         
     }
-
+    
     /**
-     * Method to sort an array of type DataCount in descending order
-     * @param counts : the DataCount array object to sort
+     * Helper method to sort descending word count, and ascending alphabet
+     * @param counts : array to sort
      * @return the sorted array
      */
-    private static <E extends Comparable<? super E>> void sortByDescendingCount(
-            DataCount<E>[] counts) {
+    private static <E extends Comparable<? super E>> DataCount<E>[] sortByDescendingCount(DataCount<E>[] counts) {
+        for (int i = 1; i < counts.length; i++) {
+            DataCount<E> x = counts[i];
+            int j;
+            for (j = i - 1; j >= 0; j--) {
+                if (counts[j].count >= x.count) {
+                    break;
+                }
+                counts[j + 1] = counts[j];
+            }
+            counts[j + 1] = x;
+        }
         
         return counts;
     }
@@ -103,7 +121,7 @@ public class WordCount {
         //argument 2 must be [ -frequency | -num_unique ]
         if ((args[0].equals("-b") || args[0].equals("-a") || args[0].equals("-h")) && (args[1].equals("-frequency") || args[1].equals("-num_unique"))) {
             //pass in args to countWords, handle them there
-            countWords(args[2], args[0], args[2]);
+            countWords(args[2], args[0], args[1]);
         } else {
             //invalid format, show help msg
             System.err.println(help);

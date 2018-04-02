@@ -15,6 +15,7 @@ class DataCount<E> {
      * The count for the data element.
      */
     int count;
+    
 
     /**
      * Create a new data count.
