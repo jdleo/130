@@ -6,7 +6,13 @@
  */
 public class HashTable implements DataCounter<String> {
     
+    //number of primes for small inputs and relatively large inputs
+    //used for table sizes to avoid collisions on quad probing
+    int[] primes = {11, 503, 1009, 2003, 3001, 5003,
+                    10007, 20011, 30011, 50021, 100003};
     
+    //our actual hashTable, start with lowest prime as tableSize
+    DataCount[] table = new DataCount[primes[0]];
 
     /** {@inheritDoc} */
     public DataCount<String>[] getCounts() {
@@ -16,8 +22,18 @@ public class HashTable implements DataCounter<String> {
 
     /** {@inheritDoc} */
     public int getSize() {
-        // TODO Auto-generated method stub
-        return 0;
+        //variable to keep count for size
+        int count = 0;
+        
+        //iterate through table
+        for (DataCount x : table) {
+            //if this DataCount data is null, it does not contribute to count
+            if (x.data != null) {
+                count++;
+            }
+        }
+        
+        return count;
     }
 
     /** {@inheritDoc} */
