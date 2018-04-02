@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.math.*;
 
 /**
  * An executable that counts the words in a files and prints out the counts in
@@ -59,12 +60,67 @@ public class WordCount {
             counts[j + 1] = x;
         }
     }
+    
+    /**
+     * Helper method to digest String to decimal
+     * @param s : string to digest to decimal
+     * @return : the int value of the String
+     */
+    private static int stringToDecimal(String s) {
+        String digits = "0123456789ABCDEF";
+        
+        //convert the string to a hex string
+        s = String.format("%040x", new BigInteger(1, s.getBytes()));
+        
+        //uppercase the hex string
+        s = s.toUpperCase();
+        
+        //convert hex string to decimal
+        int val = 0;
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            int d = digits.indexOf(c);
+            val = 16*val + d;
+        }
+        return val;
+    }
 
     public static void main(String[] args) {
-        if (args.length != 1) {
-            System.err.println("Usage: filename of document to analyze");
+        
+        //string for showing usage to user
+        String help = "Usage: java WordCount [ -b | -a | -h ] [ -frequency | -num_unique ] <filename>";
+        
+        //we want there to be exactly 3 arguments
+        if (args.length != 3) {
+            System.err.println(help);
             System.exit(1);
         }
-        countWords(args[0]);
+        
+        //argument 1 must be [ -b | -a | -h ]
+        //argument 2 must be [ -frequency | -num_unique ]
+        if ((args[0].equals("-b") || args[0].equals("-a") || args[0].equals("-h")) && (args[1].equals("-frequency") || args[1].equals("-num_unique"))) {
+            if (args[0].equals("-b")) {
+                if (args[1].equals("-frequency")) {
+                    //user chose: java WordCount -b -frequency <filename>
+                } else {
+                    //user chose: java WordCount -b -num_unique <filename>
+                }
+            } else if (args[0].equals("-a")) {
+                if (args[1].equals("-frequency")) {
+                    //user chose: java WordCount -a -frequency <filename>
+                } else {
+                    //user chose: java WordCount -a -num_unique <filename>
+                }
+            } else if (args[0].equals("-h")) {
+                if (args[1].equals("-frequency")) {
+                    //user chose: java WordCount -h -frequency <filename>
+                } else {
+                    //user chose: java WordCount -h -num_unique <filename>
+                }
+            }
+        } else {
+            System.err.println(help);
+            System.exit(1);
+        }
     }
 }
