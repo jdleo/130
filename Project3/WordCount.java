@@ -1,88 +1,91 @@
+/**
+ * Name: John Leonardo, W Reed
+ * Course: CSC 130
+ * File: WordCount.java
+ * Description: The main program that can be executed to count the words in a file, and print the counts in descending order.
+ */
+
 import java.io.IOException;
 import java.math.*;
 
-/**
- * An executable that counts the words in a files and prints out the counts in
- * descending order. You will need to modify this file.
- */
 public class WordCount {
-
-    private static void countWords(String file) {
+    
+    
+    /**
+     * Method to count and print words in a given file
+     * @param structure : "-b" for BST, "-a" for AVL, "-h" for hashTable
+     * @param option : "-frequency" for showing frequencies, "-num_unique" for just showing the num of unique words in any given document
+     */
+    private static void countWords(String file, String structure, String option) {
+        //initialize data structure
         DataCounter<String> counter = new BinarySearchTree<String>();
-
-        try {
-            FileWordReader reader = new FileWordReader(file);
-            String word = reader.nextWord();
-            while (word != null) {
-                counter.incCount(word);
-                word = reader.nextWord();
+        
+        //keep flag for if we're doing frequency
+        //if this is false, it means we just print num_unique on one line
+        boolean isFrequency = true;
+        
+        if (structure.equals("-b")) {
+            if (option.equals("-frequency")) {
+                //user chose: java WordCount -b -frequency <filename>
+                //do nothing: options are already BST and isFrequency
+            } else {
+                //user chose: java WordCount -b -num_unique <filename>
+                isFrequency = false;
             }
-        } catch (IOException e) {
-            System.err.println("Error processing " + file + e);
-            System.exit(1);
+        } else if (structure.equals("-a")) {
+            if (option.equals("-frequency")) {
+                //user chose: java WordCount -a -frequency <filename>
+                counter = new AVLTree<String>();
+            } else {
+                //user chose: java WordCount -a -num_unique <filename>
+                counter = new AVLTree<String>();
+                isFrequency = false;
+            }
+        } else if (structure.equals("-h")) {
+            if (option.equals("-frequency")) {
+                //user chose: java WordCount -h -frequency <filename>
+                counter = new HashTable<String>();
+            } else {
+                //user chose: java WordCount -h -num_unique <filename>
+                counter = new HashTable<String>();
+                isFrequency = false;
+            }
         }
-
-        DataCount<String>[] counts = counter.getCounts();
-        sortByDescendingCount(counts);
-        for (DataCount<String> c : counts)
-            System.out.println(c.count + " \t" + c.data);
+        
+        if isFrequency {
+            //print words along with their frequency
+            try {
+                FileWordReader reader = new FileWordReader(file);
+                String word = reader.nextWord();
+                while (word != null) {
+                    counter.incCount(word);
+                    word = reader.nextWord();
+                }
+            } catch (IOException e) {
+                System.err.println("Error processing " + file + e);
+                System.exit(1);
+            }
+            
+            DataCount<String>[] counts = counter.getCounts();
+            counts = sortByDescendingCount(counts);
+            for (DataCount<String> c : counts)
+                System.out.println(c.count + " \t" + c.data);
+        } else {
+            //print number of unique words
+            
+        }
+        
     }
 
     /**
-     * TODO Replace this comment with your own.
-     * 
-     * Sort the count array in descending order of count. If two elements have
-     * the same count, they should be in alphabetical order (for Strings, that
-     * is. In general, use the compareTo method for the DataCount.data field).
-     * 
-     * This code uses insertion sort. You should modify it to use a different
-     * sorting algorithm. NOTE: the current code assumes the array starts in
-     * alphabetical order! You'll need to make your code deal with unsorted
-     * arrays.
-     * 
-     * The generic parameter syntax here is new, but it just defines E as a
-     * generic parameter for this method, and constrains E to be Comparable. You
-     * shouldn't have to change it.
-     * 
-     * @param counts array to be sorted.
+     * Method to sort an array of type DataCount in descending order
+     * @param counts : the DataCount array object to sort
+     * @return the sorted array
      */
     private static <E extends Comparable<? super E>> void sortByDescendingCount(
             DataCount<E>[] counts) {
-        for (int i = 1; i < counts.length; i++) {
-            DataCount<E> x = counts[i];
-            int j;
-            for (j = i - 1; j >= 0; j--) {
-                if (counts[j].count >= x.count) {
-                    break;
-                }
-                counts[j + 1] = counts[j];
-            }
-            counts[j + 1] = x;
-        }
-    }
-    
-    /**
-     * Helper method to digest String to decimal
-     * @param s : string to digest to decimal
-     * @return : the int value of the String
-     */
-    private static int stringToDecimal(String s) {
-        String digits = "0123456789ABCDEF";
         
-        //convert the string to a hex string
-        s = String.format("%040x", new BigInteger(1, s.getBytes()));
-        
-        //uppercase the hex string
-        s = s.toUpperCase();
-        
-        //convert hex string to decimal
-        int val = 0;
-        for (int i = 0; i < s.length(); i++) {
-            char c = s.charAt(i);
-            int d = digits.indexOf(c);
-            val = 16*val + d;
-        }
-        return val;
+        return counts;
     }
 
     public static void main(String[] args) {
@@ -99,26 +102,10 @@ public class WordCount {
         //argument 1 must be [ -b | -a | -h ]
         //argument 2 must be [ -frequency | -num_unique ]
         if ((args[0].equals("-b") || args[0].equals("-a") || args[0].equals("-h")) && (args[1].equals("-frequency") || args[1].equals("-num_unique"))) {
-            if (args[0].equals("-b")) {
-                if (args[1].equals("-frequency")) {
-                    //user chose: java WordCount -b -frequency <filename>
-                } else {
-                    //user chose: java WordCount -b -num_unique <filename>
-                }
-            } else if (args[0].equals("-a")) {
-                if (args[1].equals("-frequency")) {
-                    //user chose: java WordCount -a -frequency <filename>
-                } else {
-                    //user chose: java WordCount -a -num_unique <filename>
-                }
-            } else if (args[0].equals("-h")) {
-                if (args[1].equals("-frequency")) {
-                    //user chose: java WordCount -h -frequency <filename>
-                } else {
-                    //user chose: java WordCount -h -num_unique <filename>
-                }
-            }
+            //pass in args to countWords, handle them there
+            countWords(args[2], args[0], args[2]);
         } else {
+            //invalid format, show help msg
             System.err.println(help);
             System.exit(1);
         }
