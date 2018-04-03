@@ -117,6 +117,8 @@ public class WordCount {
     private static <E extends Comparable<? super E>> DataCount<E>[] sortByDescendingCount(DataCount<E>[] counts) {
         for (int i = 1; i < counts.length; i++) {
             DataCount<E> x = counts[i];
+            System.out.println(i);
+            System.out.println(counts[i].data);
             int j;
             for (j = i - 1; j >= 0; j--) {
                 if (counts[j].count >= x.count) {

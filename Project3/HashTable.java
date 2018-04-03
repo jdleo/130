@@ -17,9 +17,7 @@ public class HashTable implements DataCounter<String> {
     //number of primes for small inputs and relatively large inputs
     //used for table sizes to avoid collisions on quad probing
     private static int[] primes = {
-    503, 1009, 2003, 3001, 5003,
-    10007, 20011, 30011, 50021, 100003,
-    200003, 300007, 500009, 1000003
+    50003, 100003, 200003, 300007, 500009, 1000003
     };
     
     //our actual hashTable, start with lowest prime as tableSize
@@ -36,7 +34,6 @@ public class HashTable implements DataCounter<String> {
         //iterate over table
         for (DataCount<String> x : table) {
             //only take non-null data, we want counts
-            
             if (x != null) {
                 counts[cur] = x;
                 cur++;
@@ -80,7 +77,6 @@ public class HashTable implements DataCounter<String> {
         //resize table to newSize
         table = new DataCount[primes[newSize]];
         
-        
         //copy over all data to new table
         for(DataCount<String> item: oldTable) {
             if (item != null) {
@@ -107,13 +103,15 @@ public class HashTable implements DataCounter<String> {
         //variable to check which index we ended up inserting to
         int index = -1;
         
+        //hash our key by converting to int representation and taking mod
+        int key = stringToDecimal(data);
+        int hash = key % table.length;
+        
         //keep trying to insert, using quadratic probing
         //since collisions=0 , it starts h(k) + 0 (normal quad probing)
         while (didCollide) {
-            //hash data and find desired index
-            //convert our string to an int representation using our helper func
-            int key = stringToDecimal(data);
-            int desiredIndex = ((key % table.length) + (int)Math.pow(collisions,2)) % table.length;
+            //for every collision add collisions^2 to h(k)
+            int desiredIndex = (hash + (int)Math.pow(collisions,2)) % table.length;
             //this means this table position is filled, could be OK tho
             if (table[desiredIndex] != null) {
                 if (table[desiredIndex].data.equals(data)) {
@@ -160,6 +158,8 @@ public class HashTable implements DataCounter<String> {
             val = 16*val + d;
         }
         return val;
+        
+
     }
 
 }
