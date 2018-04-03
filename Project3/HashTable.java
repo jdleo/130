@@ -13,7 +13,7 @@ public class HashTable implements DataCounter<String> {
     //number of primes for small inputs and relatively large inputs
     //used for table sizes to avoid collisions on quad probing
     private static int[] primes = {
-    11, 503, 1009, 2003, 3001, 5003,
+    503, 1009, 2003, 3001, 5003,
     10007, 20011, 30011, 50021, 100003,
     200003, 300007, 500009, 1000003
     };
@@ -91,7 +91,10 @@ public class HashTable implements DataCounter<String> {
         //copy over all data to new table
         for(DataCount<String> item: oldTable) {
             if (item != null) {
-                insert(item.data);
+                //insert
+                int newIndex = insert(item.data);
+                //also copy the count over
+                table[newIndex].count = item.count;
             }
         }
     }
@@ -99,13 +102,17 @@ public class HashTable implements DataCounter<String> {
     /**
      * Helper method to insert data, and increase data count when needed
      * @param data : string to hash and insert in table
+     * @return the index we ended up inserting at
      */
-    private static void insert(String data) {
+    private static int insert(String data) {
         //counter to keep track of collisions so far
         int collisions = 0;
         
         //flag to decide if we collided on last insert attempt
         boolean didCollide = true;
+        
+        //variable to check which index we ended up inserting to
+        int index = -1;
         
         //keep trying to insert, using quadratic probing
         //since collisions=0 , it starts h(k) + 0 (normal quad probing)
@@ -130,8 +137,11 @@ public class HashTable implements DataCounter<String> {
                 DataCount<String> item = new DataCount(data, 1);
                 table[desiredIndex] = item;
                 didCollide = false;
+                index = desiredIndex;
             }
         }
+        
+        return index;
     }
     
     /**
