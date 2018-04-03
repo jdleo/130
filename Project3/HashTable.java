@@ -10,6 +10,10 @@ import java.math.*;     //for BigInteger
 
 public class HashTable implements DataCounter<String> {
     
+    //variable to keep track of the size of this hash table
+    //(positions filled only, not table size)
+    private static int size = 0;
+    
     //number of primes for small inputs and relatively large inputs
     //used for table sizes to avoid collisions on quad probing
     private static int[] primes = {
@@ -43,18 +47,7 @@ public class HashTable implements DataCounter<String> {
 
     /** {@inheritDoc} */
     public int getSize() {
-        //variable to keep count for size
-        int count = 0;
-        
-        //iterate through table
-        for (DataCount<String> x : table) {
-            //if this DataCount data is null, it does not contribute to count
-            if (x != null) {
-                count++;
-            }
-        }
-        
-        return count;
+        return size;
     }
 
     /** {@inheritDoc} */
@@ -137,6 +130,7 @@ public class HashTable implements DataCounter<String> {
                 DataCount<String> item = new DataCount(data, 1);
                 table[desiredIndex] = item;
                 didCollide = false;
+                size++;     //increment data size
                 index = desiredIndex;
             }
         }
