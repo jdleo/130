@@ -133,7 +133,7 @@ public class WordCount {
     }
 
     /**
-     *  MAIN METHOD 
+     *  MAIN METHOD
      */
     public static void main(String[] args) {
         
