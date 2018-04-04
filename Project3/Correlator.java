@@ -19,15 +19,67 @@ public class Correlator {
      * @param isTesting : if this function is in test-mode. if so, it will show performance in ms
      */
     private static void correlate(String file1, String file2, String structure, boolean isTesting) {
-        //variables to keep track of runtimes
-        long start = 0;
-        long end = 0;
         
+        long startInserts = System.currentTimeMillis();
         //create data structure from file 1
         DataCounter<String> counter1 = createDataStructure(file1, structure);
         
         //create data structure from file 2
         DataCounter<String> counter2 = createDataStructure(file2, structure);
+        long endInserts = System.currentTimeMillis();
+        
+        
+        long startCorrelate = System.currentTimeMillis();
+        //get correlation score between both documents
+        score(counter1, counter2);
+        long endCorrelate = System.currentTimeMillis();
+        
+        //if we're in testing mode, show runtimes to user
+        if (isTesting) {
+            
+        }
+        
+    }
+    
+    /**
+     * Method to give a correlation score between two data structures
+     * @param d1 : the first data structure (the one we traverse)
+     * @param d2 : the second data structure
+     */
+    private static void score(DataCounter<String> ds1, DataCounter<String> ds2) {
+        
+        //get the DataCount objects for both data structures
+        DataCount<String>[] counts1 = ds1.getCounts();
+        DataCount<String>[] counts2 = ds2.getCounts();
+        
+        //get the sizes (unique word count) of each DS
+        int size1 = ds1.getSize();
+        int size2 = ds2.getSize();
+        
+        //running total for total euclidian distance
+        double totalDistance = 0.0;
+        
+        //traverse the first data structure
+        for (DataCount<String> i : counts1) {
+            //traverse second data structure to see if we can find it
+            for (DataCount<String> j : counts2) {
+                if (i.data.equals(j.data)) {
+                    //found the word in the second DataStructure
+                    
+                    //first, take normalized frequencies
+                    double frequency1 = (i.count / (double)size1);
+                    double frequency2 = (j.count / (double)size2);
+                    
+                    //then add euclidian distance to the running total
+                    double difference = frequency1 - frequency2;
+                    totalDistance += Math.pow(difference,2);
+                    
+                    break;  //break inner loop
+                }
+            }
+        }
+        
+        System.out.println("CORRELATION SCORE: " + totalDistance);
     }
     
     /**

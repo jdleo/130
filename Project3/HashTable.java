@@ -12,16 +12,16 @@ public class HashTable implements DataCounter<String> {
     
     //variable to keep track of the size of this hash table
     //(positions filled only, not table size)
-    private static int size = 0;
+    private int size = 0;
     
     //number of primes for small inputs and relatively large inputs
     //used for table sizes to avoid collisions on quad probing
-    private static int[] primes = {
+    private int[] primes = {
     50003, 100003, 200003, 300007, 500009, 1000003
     };
     
     //our actual hashTable, start with lowest prime as tableSize
-    private static DataCount<String>[] table = new DataCount[primes[0]];
+    private DataCount<String>[] table = new DataCount[primes[0]];
 
     /** {@inheritDoc} */
     public DataCount<String>[] getCounts() {
@@ -93,7 +93,7 @@ public class HashTable implements DataCounter<String> {
      * @param data : string to hash and insert in table
      * @return the index we ended up inserting at
      */
-    private static int insert(String data) {
+    private int insert(String data) {
         //counter to keep track of collisions so far
         int collisions = 0;
         
