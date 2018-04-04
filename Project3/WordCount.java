@@ -42,10 +42,10 @@ public class WordCount {
         } else if (structure.equals("-a")) {
             if (option.equals("-frequency")) {
                 //user chose: java WordCount -a -frequency <filename>
-                //counter = new AVLTree<String>();
+                counter = new AVLTree<String>();
             } else {
                 //user chose: java WordCount -a -num_unique <filename>
-                //counter = new AVLTree<String>();
+                counter = new AVLTree<String>();
                 isFrequency = false;
             }
         } else if (structure.equals("-h")) {

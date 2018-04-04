@@ -158,7 +158,6 @@ public class HashTable implements DataCounter<String> {
             val = 16*val + d;
         }
         return val;
-        
 
     }
 
