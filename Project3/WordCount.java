@@ -132,6 +132,9 @@ public class WordCount {
         return counts;
     }
 
+    /**
+     *  MAIN METHOD 
+     */
     public static void main(String[] args) {
         
         //string for showing usage to user
