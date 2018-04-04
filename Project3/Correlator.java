@@ -36,7 +36,16 @@ public class Correlator {
         
         //if we're in testing mode, show runtimes to user
         if (isTesting) {
+            long runtime1 = endInserts - startInserts;
+            long runtime2 = endCorrelate - startCorrelate;
+            long total = runtime1 + runtime2;
             
+            String m1 = "\nRUNTIMES:\n--------\n";
+            String m2 = String.format("Creating both data structures: %d (ms)\n",runtime1);
+            String m3 = String.format("Creating finding correlation: %d (ms)\n",runtime2);
+            String m4 = String.format("Total Runtime: %d (ms)\n",total);
+            
+            System.out.println(m1+m2+m3+m4);
         }
         
     }
