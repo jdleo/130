@@ -81,6 +81,8 @@ public class Correlator {
                     
                     //then add euclidian distance to the running total
                     double difference = frequency1 - frequency2;
+                    
+                    //only take difference
                     totalDistance += Math.pow(difference,2);
                     
                     break;  //break inner loop
@@ -88,7 +90,7 @@ public class Correlator {
             }
         }
         
-        System.out.println("CORRELATION SCORE: " + totalDistance);
+        System.out.println("CORRELATION SCORE: " + totalDistance + "\n(higher the score, the less similar they are)");
     }
     
     /**
